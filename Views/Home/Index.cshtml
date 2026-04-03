@@ -513,6 +513,9 @@
     </div>
 </section>
 
+<section id="appointment-booking">
+    @await Html.PartialAsync("_BookingSection")
+</section>
 
 <section id="testimonials" class="py-5 bg-white">
     <div class="container">
@@ -896,7 +899,7 @@
                        target="_blank"
                        class="text-decoration-none">
                         <div class="p-4 rounded-4 shadow-sm text-white border-0"
-                             style="background: #27ae60; transition: transform 0.2s ease, background 0.2s ease;"
+                             style="background: var(--brand-green) !important; transition: transform 0.2s ease, background 0.2s ease;"
                              onmouseover="this.style.background='#219150'; this.style.transform='scale(1.02)';"
                              onmouseout="this.style.background='#27ae60'; this.style.transform='scale(1)';">
                         <div class="d-flex align-items-center">
