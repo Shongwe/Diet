@@ -15,7 +15,25 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        var model = new HomeViewModel
+        {
+            // Populate the Stats collection
+            Stats = new List<StatItem>
+        {
+            new StatItem("9+", "Years Experience", "bi-clock"),
+            new StatItem("1.2k", "Happy Clients", "bi-people"),
+            new StatItem("15+", "Medical Aids", "bi-shield-check"),
+            new StatItem("4.9", "Average Rating", "bi-star")
+        },
+            // Populate the Services collection
+            Services = new List<ServiceItem>
+        {
+            new ServiceItem("Diabetes Care", "Specialized meal planning for glucose control.", "bi-droplet", "bg-primary"),
+            new ServiceItem("Weight Management", "Sustainable obesity and weight loss strategies.", "bi-activity", "bg-success")
+        }
+        };
+
+        return View(model);
     }
 
     public IActionResult Privacy()

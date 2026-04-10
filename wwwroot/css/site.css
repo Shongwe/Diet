@@ -1,16 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 
-
-
-
 .bg-success-light {
     background-color: var(--brand-green-light) !important;
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    padding-top: 85px; 
+    padding-top: 0px; 
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -27,10 +24,34 @@ body {
 }
 
 
-
 .hero-section {
     background: radial-gradient(circle at 10% 20%, rgba(243, 255, 248, 1) 0%, rgba(255, 255, 255, 1) 100%);
-    padding-bottom: 5rem;
+    background-image: url('../images/hero-pattern-medical.svg'); /* Integrated SVG */
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: contain;
+    padding-bottom: 0 !important;
+    min-height: 75vh; /* Restricted height to force stats onto the same screen */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem !important; /* Reduced from default to save height */
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.hero-section p.lead {
+    font-size: 1rem !important; /* Smaller body text */
+    max-width: 500px;
+}
+
+/* More Compact Buttons */
+.btn-success, .btn-outline-success {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.95rem !important;
 }
 
 .badge-custom {
@@ -732,4 +753,70 @@ footer {
     padding: 0.8rem !important;
     font-size: 1.1rem;
     border-radius: 12px;
+}
+
+
+
+
+.stats-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; /* Forces them to stay in one row */
+    gap: 10px;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 2rem; /* Slightly smaller to fit better on one screen */
+    font-weight: 800;
+    color: #28a745;
+}
+
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #28a745; /* Matches your green theme */
+}
+
+.stat-plus {
+    font-size: 1.5rem;
+    color: #28a745;
+    vertical-align: top;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+    .stats-grid {
+        flex-wrap: wrap; /* Allows 2x2 grid on small phones for readability */
+    }
+
+    .stat-item {
+        flex: 0 0 45%;
+    }
+}
+
+
+
+/* 3. Ensure the stats section is close to the hero */
+.stats-section {
+    padding-top: 0 !important;
+    margin-top: -10px; /* Pulls stats up closer to the hero image */
 }

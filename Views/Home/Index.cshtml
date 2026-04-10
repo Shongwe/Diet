@@ -1,238 +1,231 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = $"{Model.SpecialistName} | Registered Dietitian & Diabetes Educator";
+    ViewData["MetaDescription"] = Model.MetaDescription;
 }
 
-<section id="hero" class="hero-section position-relative overflow-hidden">
-    <div class="bg-shape-1"></div>
-    <div class="bg-shape-2"></div>
+@* --- HERO SECTION --- *@
+<section id="hero" class="hero-section position-relative overflow-hidden" aria-labelledby="hero-heading">
+    @* Decorative shapes: hidden from screen readers *@
+    <div class="bg-shape-1" aria-hidden="true"></div>
+    <div class="bg-shape-2" aria-hidden="true"></div>
 
     <div class="container position-relative">
         <div class="row align-items-center min-vh-100 g-5 pt-5">
             <div class="col-lg-6 py-5">
-                <div class="hero-content">
+                <header class="hero-content">
+                    @* Priority Label *@
                     <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-success bg-opacity-10 text-success mb-4 animate-fade-in">
-                        <i class="bi bi-shield-check"></i>
-                        <span class="small fw-bold">Diabetes & Obesity Focus</span>
+                        <i class="bi bi-shield-check" aria-hidden="true"></i>
+                        <span class="small fw-bold text-uppercase tracking-wider">Diabetes & Obesity Focus</span>
                     </div>
 
-                    <h1 class="display-2 fw-bolder text-dark mb-3 animate-slide-up">
-                        Jeanett Mampane
+                    <h1 id="hero-heading" class="display-2 fw-bolder text-dark mb-3 animate-slide-up">
+                        @Model.SpecialistName
                     </h1>
-                    <h2 class="h2 fw-bold text-success mb-4 animate-slide-up-delayed">
-                        Registered Dietitian
-                    </h2>
+                    <p class="h2 fw-bold text-success mb-4 animate-slide-up-delayed">Registered Dietitian</p>
 
                     <p class="lead text-secondary mb-5 animate-fade-in">
-                        Jeanett leads a team of HPCSA-registered dietitians, ensuring comprehensive
-                        nutrition care across various medical conditions with her special interest
-                        on obesity and diabetes.
-                    </p>
+                                <p class="small text-muted mb-3">
+                                    <strong>Jeanett Mampane</strong> is a Registered Dietitian, qualified from the University of Limpopo in 2016 and completed her community service at Brits District Hospital in 2017. She has extensive experience in providing nutrition support for critical illness and chronic diseases.
+                                </p>
+                                <p class="small text-muted mb-3">
+                                    Currently practicing at <strong>Netcare Ferncrest, Life Peglerae, and Medicare Hospital</strong>, she also provides outpatient consultations at Phomolong Medical Centre.
+                                </p>
+                                <p class="small text-muted mb-0">
+                                    With a Post-Graduate Diploma in Diabetes from the <strong>University of South Wales (UK)</strong>, Jeanett is committed to individualized, realistic, and sustainable care for obesity and diabetes management.
+                                </p>
+=                    </p>
 
+                    @* Call to Action Group *@
                     <div class="d-flex flex-wrap gap-3 mb-5 animate-slide-up-buttons">
-                        <a href="#contact" class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg-success">
-                            Book Consultation R650 <i class="bi bi-arrow-right ms-2"></i>
+                        <a href="#appointment-booking" class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm">
+                            Book Consultation · R@(Model.ConsultationPrice.ToString("N0"))
+                            <i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>
                         </a>
                         <a href="#services-grid" class="btn btn-outline-success btn-lg rounded-pill px-5 py-3 fw-bold">
-                            View Services
+                            Our Services
                         </a>
                     </div>
 
-                    <div class="d-flex flex-wrap gap-2 animate-fade-in">
-                        <span class="badge-custom">HPCSA Registered</span>
-                        <span class="badge-custom">Diabetes Educator</span>
-                        <span class="badge-custom">Medical Aid Accepted</span>
-                        <span class="badge-custom">Post-Grad Diabetes</span>
+                    @* Trust Badges *@
+                    <div class="d-flex flex-wrap gap-2 animate-fade-in" role="list">
+                        @foreach (var badge in Model.SpecialistBadges)
+                        {
+                            <span class="badge-custom" role="listitem">@badge</span>
+                        }
                     </div>
-                </div>
+                </header>
             </div>
 
             <div class="col-lg-6 position-relative text-center animate-zoom-in">
                 <div class="image-container mx-auto">
-                    <img src="/images/jeanett-portrait.jpg" alt="Jeanett Mampane" class="hero-img rounded-5 shadow-2xl">
+                    @* Image Optimization: fetchpriority="high" for LCP element *@
+                    <img src="~/images/jeanett-portrait.jpg"
+                         alt="Portrait of @Model.SpecialistName"
+                         class="hero-img rounded-5 shadow-2xl img-fluid"
+                         fetchpriority="high"
+                         width="300"
+                         height="300">
 
                     <div class="glass-card position-absolute bottom-0 start-0 translate-middle-x mb-5 shadow-lg p-3 d-flex align-items-center">
-                        <div class="price-circle me-3">R650</div>
+                        <div class="price-circle me-3" aria-label="Consultation fee">R@(Model.ConsultationPrice.ToString("N0"))</div>
                         <div class="text-start">
-                            <p class="fw-bold mb-0 small text-dark">Consultation</p>
-                            <p class="text-muted mb-0 extra-small">All medical aids accepted</p>
+                            <p class="fw-bold mb-0 small text-dark">Initial Assessment</p>
+                            <p class="text-muted mb-0 extra-small">Medical Aids Accepted</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-lg-n5 pb-5 g-4 animate-fade-in-delayed">
-            <div class="col-6 col-lg-3">
-                <div class="stats-card">
-                    <div class="stats-icon text-success"><i class="bi bi-clock-history"></i></div>
-                    <h3 class="fw-bolder">9+</h3>
-                    <p class="text-muted mb-0">Years Experience</p>
+        @* --- STATS ROW --- *@
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item fade-in-up">
+                        <span class="stat-number" data-target="6">0</span>
+                        <span class="stat-plus">+</span>
+                        <p class="stat-label">Years Experience</p>
+                    </div>
+                    <div class="stat-item fade-in-up">
+                        <span class="stat-number" data-target="683">0</span>
+                        <span class="stat-plus">+</span>
+                        <p class="stat-label">Patients Helped</p>
+                    </div>
+                    <div class="stat-item fade-in-up">
+                        <span class="stat-number" data-target="10">0</span>
+                        <span class="stat-plus">+</span>
+                        <p class="stat-label">Certifications</p>
+                    </div>
+                    <div class="stat-item fade-in-up">
+                        <span class="stat-number" data-target="2">0</span>
+                        <span class="stat-plus">+</span>
+                        <p class="stat-label">Dietitians Team</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-6 col-lg-3">
-                <div class="stats-card">
-                    <div class="stats-icon text-success"><i class="bi bi-people"></i></div>
-                    <h3 class="fw-bolder">1,000+</h3>
-                    <p class="text-muted mb-0">Patients Helped</p>
-                </div>
-            </div>
-            <div class="col-6 col-lg-3">
-                <div class="stats-card">
-                    <div class="stats-icon text-success"><i class="bi bi-award"></i></div>
-                    <h3 class="fw-bolder">15+</h3>
-                    <p class="text-muted mb-0">Certifications</p>
-                </div>
-            </div>
-            <div class="col-6 col-lg-3">
-                <div class="stats-card">
-                    <div class="stats-icon text-success"><i class="bi bi-hospital"></i></div>
-                    <h3 class="fw-bolder">4</h3>
-                    <p class="text-muted mb-0">Dietitians Team</p>
-                </div>
-            </div>
-        </div>
+        </section>
+
     </div>
 </section>
 
-<section id="about" class="py-lg-5 py-4 bg-white min-vh-100 d-flex align-items-center animate-on-scroll">
-    <div class="container fade-in-up">
+@* --- ABOUT & CLINICAL TEAM SECTION --- *@
 
-    <div class="container h-100 d-flex flex-column justify-content-center">
-        <div class="text-center mb-3">
-            <span class="badge rounded-pill bg-success bg-opacity-10 text-success px-3 mb-2" style="font-size: 0.7rem;">About Jeanett</span>
-            <h2 class="fw-bold h3 mb-1">Your Nutrition Expert & Diabetes Educator</h2>
-            <p class="text-muted extra-small mb-0 mx-auto" style="max-width: 700px;">
-                9+ years of clinical experience providing evidence-based therapy with a team of qualified dietitians.
-            </p>
-        </div>
-
-        <div class="row g-3 align-items-start">
+<section id="about" class="py-5 bg-white border-bottom">
+    <div class="container py-lg-5">
+        <div class="row g-5 align-items-start">
+            @* Left Column: Profile Card *@
             <div class="col-lg-4">
-                <div class="card border-0 rounded-4 overflow-hidden shadow-sm mb-2">
-                    <img src="/images/jeanett-portrait.jpg" class="img-fluid w-100" style="object-fit: cover; max-height: 380px;" alt="Jeanett Mampane">
-                    <div class="card-body p-4 bg-white">
-                        <h5 class="fw-bold mb-1">Jeanett Mampane</h5>
-                        <p class="text-success small fw-bold mb-3">Registered Dietitian & Certified Diabetes Educator</p>
-                        <p class="small text-muted mb-3 italic">"Good nutrition is the foundation of lasting health. My approach combines scientific evidence with compassionate care."</p>
-                        <div class="d-flex flex-wrap gap-1">
-                            <span class="badge border text-success bg-light">Obesity Management</span>
-                            <span class="badge border text-success bg-light">Diabetes Care</span>
-                            <span class="badge border text-success bg-light">Evidence-Based</span>
-                        </div>
-                    </div>
-                </div>
+                <div class="card border-0 rounded-4 shadow-sm overflow-hidden sticky-top" style="top: 2rem;">
+                    <img src="/images/jeanett-portrait.jpg" class="card-img-top" alt="Jeanett Mampane">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-1">Jeanett Mampane</h4>
+                        <p class="text-success small fw-bold mb-3 text-uppercase">Clinical Director</p>
+                        <p class="small text-muted mb-4 fst-italic">"My approach combines clinical scientific evidence with compassionate, sustainable lifestyle changes."</p>
 
-                <div class="p-4 bg-light rounded-4 border">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-white p-2 rounded-3 shadow-sm me-3 text-primary">
-                            <i class="bi bi-people-fill fs-4"></i>
+                        <div class="p-3 bg-light rounded-3">
+                            <h6 class="fw-bold small mb-3 text-uppercase tracking-wide">Our Clinical Team</h6>
+                            <ul class="list-unstyled mb-0 small text-secondary">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Laura Manyike</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Lethabo Meso</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Beverly Gibbs</li>
+                            </ul>
                         </div>
-                        <h6 class="fw-bold mb-0">Team Support</h6>
                     </div>
-                    <p class="small text-muted mb-0">
-                        Jeanett works alongside three HPCSA-registered dietitians who provide support across various nutrition specialties.
-                    </p>
-                    <ul class="list-unstyled mt-3 small">
-                        <li class="mb-1"><i class="bi bi-dot text-success"></i> Laura Manyike</li>
-                        <li class="mb-1"><i class="bi bi-dot text-success"></i> Lethabo Meso</li>
-                        <li><i class="bi bi-dot text-success"></i> Beverly Gibbs</li>
-                    </ul>
                 </div>
             </div>
 
+            @* Right Column: Credentials & Experience *@
             <div class="col-lg-8">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-mortarboard-fill text-danger me-2"></i>
-                            <h6 class="fw-bold mb-0 small">Education</h6>
-                        </div>
-                        <h4 class="fw-bold mb-0">Education</h4>
-                    </div>
-                    <div class="ps-2 border-start border-2 ms-4">
-                        <div class="mb-3 ps-3 position-relative">
-                            <h6 class="fw-bold mb-0">BSc Dietetics</h6>
-                            <small class="text-muted">University of Limpopo (2016)</small>
-                        </div>
-                        <div class="mb-3 ps-3 position-relative">
-                            <h6 class="fw-bold mb-0">Post Graduate Diploma in Diabetes</h6>
-                            <small class="text-muted">University of South Wales, UK</small>
-                        </div>
-                        <div class="ps-3 position-relative">
-                            <h6 class="fw-bold mb-0">Diabetes Foundation Course</h6>
-                            <small class="text-muted">CDE South Africa (2022)</small>
-                        </div>
-                    </div>
-                </div>
+                <span class="badge rounded-pill bg-success bg-opacity-10 text-success px-3 mb-3">Professional Profile</span>
+                <h2 class="display-6 fw-bold mb-4">Credentials & Clinical Background</h2>
 
+                <div class="row g-4">
+                    @* Education *@
                     <div class="col-md-6">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-briefcase-fill text-success me-2"></i>
-                            <h6 class="fw-bold mb-0 small">Experience</h6>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-danger bg-opacity-10 p-2 rounded-3 text-danger me-3">
+                                <i class="bi bi-mortarboard-fill fs-4"></i>
+                            </div>
+                            <h5 class="fw-bold mb-0">Education</h5>
                         </div>
 
+                        @* This container provides the vertical line *@
                         <div class="ps-2 border-start border-2 ms-4">
                             <div class="mb-3 ps-3 position-relative">
-                                <h6 class="fw-bold mb-0">Community Service</h6>
-                                <small class="text-muted">Brits District Hospital (2017)</small>
+                                <h6 class="fw-bold mb-0">PG Dip in Diabetes</h6>
+                                <small class="text-muted">University of South Wales, UK</small>
+                            </div>
+                            <div class="mb-3 ps-3 position-relative">
+                                <h6 class="fw-bold mb-0">BSc Dietetics</h6>
+                                <small class="text-muted">University of Limpopo (2016)</small>
+                            </div>
+                            <div class="ps-3 position-relative">
+                                <h6 class="fw-bold mb-0">Diabetes Foundation Course</h6>
+                                <small class="text-muted">CDE South Africa (2022)</small>
+                            </div>
+                        </div>
                     </div>
+
+                    @* Experience *@
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-success bg-opacity-10 p-2 rounded-3 text-success me-3">
+                                <i class="bi bi-briefcase-fill fs-4"></i>
+                            </div>
+                            <h5 class="fw-bold mb-0">Experience</h5>
+                        </div>
+
+                        @* This container provides the vertical line *@
+                        <div class="ps-2 border-start border-2 ms-4">
                             <div class="mb-3 ps-3 position-relative">
                                 <h6 class="fw-bold mb-0">Clinical Dietitian</h6>
                                 <small class="text-muted">Netcare Ferncrest Hospital</small>
-                </div>
-                            <div class="ps-3 position-relative">
-                                <h6 class="fw-bold mb-0">Clinical Dietitian</h6>
+                            </div>
+                            <div class="mb-3 ps-3 position-relative">
+                                <h6 class="fw-bold mb-0">Diabetes Specialist</h6>
                                 <small class="text-muted">Life Peglerae Hospital</small>
-                        </div>
+                            </div>
                             <div class="ps-3 position-relative">
-                                <h6 class="fw-bold mb-0">Outpatient Consultations</h6>
-                                <small class="text-muted">Phomolong Medical Centre</small>
-                    </div>
+                                <h6 class="fw-bold mb-0">Public Health Care</h6>
+                                <small class="text-muted">Brits District Hospital (2017)</small>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-12 mt-2">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-trophy-fill text-warning me-2"></i>
-                            <h6 class="fw-bold mb-0 small">Achievements</h6>
-                        </div>
-                        <div class="row g-2">
+                @* Affiliations Section *@
+                <div class="mt-5 p-4 bg-light rounded-4 border">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-trophy text-warning me-2"></i>Professional Affiliations</h6>
+                    <div class="row g-2">
                         <div class="col-md-6">
-                            <div class="p-2 border rounded-3 small shadow-sm"><i class="bi bi-check2-circle text-success me-2"></i>HPCSA Registered</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-2 border rounded-3 small shadow-sm"><i class="bi bi-check2-circle text-success me-2"></i>Academic Awards - U. Limpopo</div>
+                            <div class="p-2 bg-white border rounded small">
+                                <i class="bi bi-check2 text-success me-2"></i>HPCSA Registered Professional
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="p-2 border rounded-3 small shadow-sm"><i class="bi bi-check2-circle text-success me-2"></i>Former Dietitian at Guidepost</div>
+                            <div class="p-2 bg-white border rounded small">
+                                <i class="bi bi-check2 text-success me-2"></i>Certified Diabetes Educator (CDE)
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="p-2 border rounded-3 small shadow-sm"><i class="bi bi-check2-circle text-success me-2"></i>Certified Diabetes Educator</div>
+                            <div class="p-2 bg-white border rounded small">
+                                <i class="bi bi-check2 text-success me-2"></i>Academic Excellence Awards - U. Limpopo
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-2 bg-white border rounded small">
+                                <i class="bi bi-check2 text-success me-2"></i>Clinical Nutrition Specialist
+                            </div>
                         </div>
                     </div>
                 </div>
-                    <div class="p-4 bg-light rounded-4 border">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="bg-white p-2 rounded-3 shadow-sm me-3 text-primary">
-                                <i class="bi bi-people-fill fs-4"></i>
-            </div>
-                            <h6 class="fw-bold mb-0">Team Support</h6>
-        </div>
-                        <p class="small text-muted mb-0">
-                            Jeanett works alongside three HPCSA-registered dietitians who provide support across various nutrition specialties.
-                        </p>
-                        <ul class="list-unstyled mt-3 small">
-                            <li class="mb-1"><i class="bi bi-dot text-success"></i> Laura Manyike</li>
-                            <li class="mb-1"><i class="bi bi-dot text-success"></i> Lethabo Meso</li>
-                            <li><i class="bi bi-dot text-success"></i> Beverly Gibbs</li>
-                        </ul>
-    </div>
-                </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
+
 
 <section id="services-grid" class="py-5 bg-white">
     <div class="container">
@@ -774,7 +767,7 @@
 
                     <div class="accordion-item mb-3 border rounded-4 overflow-hidden shadow-sm">
                         <h2 class="accordion-header">
-                            <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
                                 What is the difference between a dietitian and a nutritionist?
                             </button>
                         </h2>
@@ -796,57 +789,47 @@
     </div>
 </section>
 
-<section id="contact" class="py-5 bg-light">
-    <div class="container py-lg-4">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold display-5">Get In Touch</h2>
-            <p class="text-muted mx-auto" style="max-width: 600px;">
-                Ready to start your journey to better health? Reach out today and let's discuss how we can help you achieve your nutrition goals.
+
+<section id="contact" class="py-4 bg-light">
+    <div class="container py-lg-2">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold h1">Get In Touch</h2>
+            <p class="text-muted mx-auto small" style="max-width: 500px;">
+                Ready to start your journey to better health? Reach out today to discuss your nutrition goals.
             </p>
         </div>
 
         <div class="row g-3">
             <div class="col-lg-7">
-                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 h-90">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="bg-success bg-opacity-10 p-2 rounded-3 me-3">
-                            <i class="bi bi-calendar-check text-success fs-4"></i>
-                        </div>
-                        <h4 class="mb-0 fw-bold">Book Your Consultation</h4>
-                    </div>
-
-                    <form >
-                        <div class="row g-3">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <form action="#" method="POST">
+                        <div class="row g-2">
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Full Name *</label>
-                                <input type="text" class="form-control form-control-lg bg-light border-0 fs-6" placeholder="Your full name">
+                                <label class="form-label small fw-bold mb-1">Full Name *</label>
+                                <input type="text" class="form-control bg-light border-0" placeholder="Your name" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Email Address *</label>
-                                <input type="email" class="form-control form-control-lg bg-light border-0 fs-6" placeholder="your@email.com">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label small fw-bold">Phone Number *</label>
-                                <input type="tel" class="form-control form-control-lg bg-light border-0 fs-6" placeholder="+27 71 234 5678">
+                                <label class="form-label small fw-bold mb-1">Email *</label>
+                                <input type="email" class="form-control bg-light border-0" placeholder="your@email.com" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Preferred Date</label>
-                                <input type="date" class="form-control form-control-lg bg-light border-0 fs-6">
+                                <label class="form-label small fw-bold mb-1">Date</label>
+                                <input type="date" class="form-control bg-light border-0">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Preferred Time</label>
-                                <select class="form-select form-select-lg bg-light border-0 fs-6">
-                                    <option selected disabled>Select a time</option>
+                                <label class="form-label small fw-bold mb-1">Time</label>
+                                <select class="form-select bg-light border-0">
+                                    <option selected disabled>Select time</option>
                                     <option>Morning</option>
                                     <option>Afternoon</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-bold">Message *</label>
-                                <textarea class="form-control bg-light border-0 fs-6" rows="4" placeholder="Tell us about your health goals..."></textarea>
+                                <label class="form-label small fw-bold mb-1">Message *</label>
+                                <textarea class="form-control bg-light border-0" rows="3" placeholder="How can we help?" required></textarea>
                             </div>
-                            <div class="col-12 mt-4">
-                                <button type="submit" class="btn btn-success btn-lg w-100 rounded-pill py-3 fw-bold">Send Message</button>
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-success w-100 rounded-pill py-2 fw-bold">Send Message</button>
                             </div>
                         </div>
                     </form>
@@ -854,69 +837,49 @@
             </div>
 
             <div class="col-lg-5">
-                <div class="d-flex flex-column gap-3 h-100">
-                    <div class="contact-info-card d-flex align-items-center p-3 bg-white shadow-sm rounded-4 border">
-                        <div class="icon-box bg-success bg-opacity-10 rounded-3 me-3" style="width: 48px; height: 48px;">
-                            <i class="bi bi-telephone text-success"></i>
+                <div class="d-flex flex-column gap-2 h-100">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="p-2 bg-white shadow-sm rounded-4 border text-center">
+                                <i class="bi bi-telephone text-success d-block mb-1"></i>
+                                <small class="text-muted d-block" style="font-size: 0.7rem;">Phone</small>
+                                <span class="small fw-bold">+27 14 061 0630</span>
+                            </div>
                         </div>
-                        <div>
-                            <small class="text-muted d-block">Phone</small>
-                            <span class="fw-normal">+27 14 061 0630</span>
-                        </div>
-                    </div>
-
-                    <div class="contact-info-card d-flex align-items-center p-3 bg-white shadow-sm rounded-4 border">
-                        <div class="icon-box bg-success bg-opacity-10 rounded-3 me-3" style="width: 48px; height: 48px;">
-                            <i class="bi bi-send text-success"></i>
-                        </div>
-                        <div>
-                            <small class="text-muted d-block">WhatsApp</small>
-                            <span class="fw-normal">+27 66 241 7104</span>
-                        </div>
-                    </div>
-
-                    <div class="contact-info-card d-flex align-items-center p-3 bg-white shadow-sm rounded-4 border">
-                        <div class="icon-box bg-success bg-opacity-10 rounded-3 me-3" style="width: 48px; height: 48px;">
-                            <i class="bi bi-envelope text-success"></i>
-                        </div>
-                        <div>
-                            <small class="text-muted d-block">Email</small>
-                            <span class="fw-normal">officejeanett@gmail.com</span>
-                        </div>
-                    </div>
-
-                    <div class="contact-info-card d-flex align-items-center p-3 bg-white shadow-sm rounded-4 border">
-                        <div class="icon-box bg-success bg-opacity-10 rounded-3 me-3" style="width: 48px; height: 48px;">
-                            <i class="bi bi-geo-alt text-success"></i>
-                        </div>
-                        <div>
-                            <small class="text-muted d-block">Address</small>
-                            <span class="fw-normal small">Phomolong Medical Centre, Tlhabane, Rustenburg</span>
-                        </div>
-                    </div>
-
-                    <a href="https://wa.me/27792661157?text=Hi%20NJ%20Seroka%20Dietitians,%20I%m%20visiting%20your%20website%20and%20would%20like%20to%20chat."
-                       target="_blank"
-                       class="text-decoration-none">
-                        <div class="p-4 rounded-4 shadow-sm text-white border-0"
-                             style="background: var(--brand-green) !important; transition: transform 0.2s ease, background 0.2s ease;"
-                             onmouseover="this.style.background='#219150'; this.style.transform='scale(1.02)';"
-                             onmouseout="this.style.background='#27ae60'; this.style.transform='scale(1)';">
-                        <div class="d-flex align-items-center">
-                                <i class="bi bi-whatsapp fs-1 me-3"></i>
-                            <div>
-                                    <h6 class="mb-0 fw-bold fs-5">Chat on WhatsApp</h6>
-                                    <p class="mb-0 opacity-75 small">Quick responses during business hours</p>
+                        <div class="col-6">
+                            <div class="p-2 bg-white shadow-sm rounded-4 border text-center">
+                                <i class="bi bi-envelope text-success d-block mb-1"></i>
+                                <small class="text-muted d-block" style="font-size: 0.7rem;">Email</small>
+                                <span class="small fw-bold">office@gmail.com</span>
                             </div>
                         </div>
                     </div>
+
+                    <a href="https://wa.me/27662417104" target="_blank" class="text-decoration-none">
+                        <div class="p-3 rounded-4 shadow-sm text-white text-center" style="background: #27ae60;">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <i class="bi bi-whatsapp fs-3 me-2"></i>
+                                <div class="text-start">
+                                    <h6 class="mb-0 fw-bold">WhatsApp Chat</h6>
+                                    <p class="mb-0 small opacity-75">Online now</p>
+                                </div>
+                            </div>
+                        </div>
                     </a>
 
-                    <div class="p-4 bg-white rounded-4 border shadow-sm mt-auto">
-                        <h6 class="fw-bold mb-2">Response Time</h6>
-                        <p class="small text-muted mb-0">
-                            We typically respond within 24 hours during business days. For urgent matters, please call directly.
-                        </p>
+                    <div class="p-3 bg-white rounded-4 border shadow-sm mt-auto">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-geo-alt text-success me-2 mt-1"></i>
+                            <div>
+                                <h6 class="fw-bold mb-1 small">Location</h6>
+                                <p class="small text-muted mb-0">Phomolong Medical Centre, Tlhabane, Rustenburg</p>
+                            </div>
+                        </div>
+                        <hr class="my-2 opacity-10">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="badge bg-light text-dark fw-normal">Free Parking</span>
+                            <span class="small text-muted">Response: < 24h</span>
+                        </div>
                     </div>
                 </div>
             </div>
