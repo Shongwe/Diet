@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Diet.Models.Appointment>
+@{
+    ViewData["Title"] = "Consultation Management";
+    Layout = "_Layout";
+}
+
+@* The 'min-height' calculation (100vh - 80px) ensures the content fills the screen.
+   80px is an estimate for your navbar height.
+*@
+<div class="d-flex flex-column" style="min-height: calc(100vh - 80px);">
+    <div class="container mt-4 flex-grow-1" style="max-width: 1000px;">
+
+        <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+            <h5 class="fw-bold m-0" style="color: #2C3E50;">Consultation Management</h5>
+            <span class="badge rounded-pill px-2 py-1 border border-success-subtle text-success small" style="font-size: 0.65rem; background-color: #f8fff9;">
+                Admin Mode
+            </span>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-3 overflow-hidden d-flex flex-column" style="min-height: 80vh;">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle mb-0" style="font-size: 0.75rem;">
+                        <thead class="bg-light">
+                            <tr class="text-muted fw-bold" style="font-size: 0.65rem; border-bottom: 1px solid #eee;">
+                                <th class="ps-3 py-1">PATIENT</th>
+                                <th class="py-1">DATE/TIME</th>
+                                <th class="py-1">STATUS</th>
+                                <th class="text-end pe-3 py-1">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var app in Model)
+                            {
+                                <tr id="row-@app.Id" style="border-bottom: 1px solid #f9f9f9;">
+                                    <td class="ps-3 py-1">
+                                        <div class="fw-bold text-dark">@app.FullName</div>
+                                        <div class="text-muted" style="font-size: 0.65rem; line-height: 1;">@app.Email</div>
+                                    </td>
+                                    <td class="py-1">
+                                        <div class="fw-bold">@app.StartTime.ToString("dd MMM yyyy")</div>
+                                        <div class="text-muted" style="font-size: 0.65rem;">@app.StartTime.ToString("hh:mm tt")</div>
+                                    </td>
+                                    <td class="py-1">
+                                        @if (app.IsConfirmed)
+                                        {
+                                            <span class="badge bg-success-subtle text-success py-0 px-2 rounded-pill" style="font-size: 0.6rem;">Confirmed</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning-subtle text-warning py-0 px-2 rounded-pill" style="font-size: 0.6rem;">Pending</span>
+                                        }
+                                    </td>
+                                    <td class="text-end pe-3 py-1">
+                                        <div class="d-flex justify-content-end align-items-center gap-1">
+                                            @if (!app.IsConfirmed)
+                                            {
+                                                <button class="btn btn-success btn-sm py-0 px-2 rounded-pill fw-bold"
+                                                        onclick="confirmAppointment(event, @app.Id)"
+                                                        style="font-size: 0.65rem; height: 22px;">
+                                                    Confirm
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted small me-2" style="font-size: 0.65rem;"><i class="bi bi-check2"></i></span>
+                                            }
+
+                                            <button class="btn btn-outline-danger btn-sm py-0 px-1 border-0"
+                                                    onclick="deleteAppointment(event, @app.Id)"
+                                                    style="height: 22px; width: 22px;">
+                                                <i class="bi bi-trash3" style="font-size: 0.75rem;"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                @* Centered Empty State occupying the remaining vertical space *@
+                <div class="d-flex flex-column justify-content-center align-items-center bg-white" style="height: 60vh;">
+                    <div class="text-center py-5">
+                        <div class="mb-3">
+                            <i class="bi bi-calendar-x text-light" style="font-size: 4rem;"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">No consultations found</h5>
+                        <p class="text-muted small mx-auto" style="max-width: 350px;">
+                            When patients book appointments through the website, they will appear here for your review.
+                        </p>
+                        <a href="/" class="btn btn-outline-success btn-sm rounded-pill px-4 mt-2" style="font-size: 0.8rem;">
+                            Go to Home
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+    <script>
+        async function confirmAppointment(event, id) {
+            if (!confirm("Confirm this booking?")) return;
+            const btn = event.currentTarget;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            try {
+                const response = await fetch(`/Admin/ConfirmAppointment/${id}`, { method: 'POST' });
+                if (response.ok) location.reload();
+            } catch (e) {
+                alert("Error");
+                btn.disabled = false;
+                btn.innerHTML = 'Confirm';
+            }
+        }
+
+        async function deleteAppointment(event, id) {
+            if (!confirm("Are you sure you want to permanently delete this booking?")) return;
+
+            const btn = event.currentTarget;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="bi bi-hourglass-split"></i>';
+
+            try {
+                const response = await fetch(`/Admin/DeleteAppointment/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    document.getElementById(`row-${id}`).style.transition = "opacity 0.3s";
+                    document.getElementById(`row-${id}`).style.opacity = "0";
+                    setTimeout(() => location.reload(), 300);
+                } else {
+                    alert("Failed to delete the booking.");
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bi bi-trash3"></i>';
+                }
+            } catch (e) {
+                alert("An error occurred.");
+                btn.disabled = false;
+                btn.innerHTML = '<i class="bi bi-trash3"></i>';
+            }
+        }
+    </script>

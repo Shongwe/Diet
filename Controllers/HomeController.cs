@@ -1,6 +1,8 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using Diet.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Diet.Controllers;
 
@@ -13,8 +15,9 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         var model = new HomeViewModel
         {
             // Populate the Stats collection
@@ -32,7 +35,7 @@ public class HomeController : Controller
             new ServiceItem("Weight Management", "Sustainable obesity and weight loss strategies.", "bi-activity", "bg-success")
         }
         };
-
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return View(model);
     }
 

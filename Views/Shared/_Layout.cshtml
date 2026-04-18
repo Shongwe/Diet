@@ -3,22 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Demo</title>
+    <title>@ViewData["Title"] - NJ Seroka Dietitians</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Demo.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
                     <img src="~/images/logo.jpeg" alt="Logo" height="45" class="me-2">
                     <div class="lh-1">
                         <span class="fw-bold d-block mb-0" style="color: #333; font-size: 1.1rem;">NJ Seroka Dietitians</span>
-                        <small class="text-success .text-primary fw-semibold" style="font-size: 0.75rem;">Registered Dietitians</small>
+                        <small class="text-success fw-semibold" style="font-size: 0.75rem;">Registered Dietitians</small>
                     </div>
                 </a>
 
@@ -28,19 +32,29 @@
 
                 <div class="collapse navbar-collapse" id="mainNav">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link px-3 fw-medium text-dark" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-3 fw-medium text-dark" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li class="nav-item"><a class="nav-link px-3 fw-medium text-dark" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link px-3 fw-medium text-dark" href="#services-grid">Services</a></li>
                         <li class="nav-item"><a class="nav-link px-3 fw-medium text-dark" href="#contact">Contact</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link px-3 fw-medium text-dark" asp-controller="Admin" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link px-3 fw-medium text-dark" asp-controller="Admin" asp-action="Login">Login</a>
+                            </li>
+                        }
                     </ul>
 
                     <div class="d-flex align-items-center">
                         <a href="tel:+27140610630" class="text-decoration-none text-dark me-4 d-none d-xl-inline-block small">
                             <i class="bi bi-telephone-fill text-success"></i> +27 14 061 0630
                         </a>
-                      
                         <a asp-controller="Booking" asp-action="Index" class="btn btn-success rounded-pill px-4 fw-bold shadow-sm" style="background-color: #2ecc71; border: none; font-size: 0.9rem;">
-
                             Book Consultation
                         </a>
                     </div>
@@ -49,17 +63,9 @@
         </nav>
     </header>
 
-    <body class="d-flex flex-column min-vh-100">
-
-
-        <main role="main" class="flex-grow-1">
-            @RenderBody()
-        </main>
-
-
-
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
+    <main role="main" class="flex-grow-1">
+        @RenderBody()
+    </main>
 
     <footer class="bg-dark text-white pt-5 pb-3">
         <div class="container">
@@ -84,12 +90,12 @@
 
                 <div class="col-lg-2 col-md-6 ps-lg-5">
                     <h5 class="mb-4 fw-bold">Quick Links</h5>
-                    <ul class="list-unstyled footer-links">
-                        <li><a href="#" class="text-secondary text-decoration-none">Home</a></li>
-                        <li><a href="#about" class="text-secondary text-decoration-none">About</a></li>
-                        <li><a href="#services-grid" class="text-secondary text-decoration-none">Services</a></li>
-                        <li><a href="#contact" class="text-secondary text-decoration-none">Contact</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-secondary text-decoration-none small">Home</a></li>
+                        <li><a href="#about" class="text-secondary text-decoration-none small">About</a></li>
+                        <li><a href="#services-grid" class="text-secondary text-decoration-none small">Services</a></li>
+                        <li><a href="#contact" class="text-secondary text-decoration-none small">Contact</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none small">Privacy Policy</a></li>
                     </ul>
                 </div>
 
@@ -107,13 +113,10 @@
                         <i class="bi bi-whatsapp text-success me-3"></i>
                         <span class="text-secondary small">+27 66 241 7104<br><small class="text-muted">WhatsApp / Mobile</small></span>
                     </div>
-                
-                    <div class="whatsapp-card p-3 rounded-3 mt-3">
-                        <p class="small mb-2">Quick response via WhatsApp</p>
-                       
-                        <a href="https://wa.me/27792661157?text=Hi%20NJ%20Seroka%20Dietitians,%20I%20would%20like%20to%20inquire%20about%20your%20nutrition%20services."
-                           target="_blank"
-                           class="btn btn-success btn-sm w-100 rounded-pill">
+
+                    <div class="p-3 rounded-3 mt-3" style="background: rgba(46, 204, 113, 0.1);">
+                        <p class="small mb-2 text-white">Quick response via WhatsApp</p>
+                        <a href="https://wa.me/27662417104" target="_blank" class="btn btn-success btn-sm w-100 rounded-pill">
                             <i class="bi bi-whatsapp me-2"></i> Chat on WhatsApp
                         </a>
                     </div>
@@ -123,15 +126,11 @@
                     <h5 class="mb-4 fw-bold">Operating Hours</h5>
                     <ul class="list-unstyled small">
                         <li class="d-flex justify-content-between mb-2">
-                            <span><i class="bi bi-clock text-success me-2"></i> Monday - Friday</span>
+                            <span><i class="bi bi-clock text-success me-2"></i> Mon - Fri</span>
                             <span class="text-secondary">08:00 - 17:00</span>
                         </li>
                         <li class="d-flex justify-content-between mb-2">
-                            <span><i class="bi bi-clock text-danger me-2"></i> Saturday</span>
-                            <span class="text-secondary">Closed</span>
-                        </li>
-                        <li class="d-flex justify-content-between mb-4">
-                            <span><i class="bi bi-clock text-danger me-2"></i> Sunday</span>
+                            <span><i class="bi bi-clock text-danger me-2"></i> Sat - Sun</span>
                             <span class="text-secondary">Closed</span>
                         </li>
                     </ul>
@@ -139,20 +138,14 @@
                         <small class="text-success fw-bold">HPCSA Registered Dietitian</small><br>
                         <small class="text-muted">DT0000000</small>
                     </div>
-                    <div class="bg-opacity-10 border-danger border-opacity-25 py-2 px-3">
-                        <p class="smaller mb-0" style="font-size: 0.75rem;">
-                            <strong>Note:</strong> For medical emergencies, please contact your nearest hospital.
-                        </p>
-                    </div>
                 </div>
             </div>
 
             <hr class="mt-5 border-secondary">
             <div class="text-center mt-3">
                 <p class="smaller text-secondary mb-0" style="font-size: 0.8rem;">
-                    &copy; @DateTime.Now.Year NJ Seroka Dietitians. All rights reserved. HPCSA registration applied.
+                    &copy; @DateTime.Now.Year NJ Seroka Dietitians. All rights reserved.
                 </p>
-                <a asp-controller="Admin" asp-action="Index" class="text-decoration-none link-light">Staff Login</a>
             </div>
         </div>
     </footer>

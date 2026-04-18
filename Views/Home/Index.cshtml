@@ -522,90 +522,101 @@
     @await Html.PartialAsync("_BookingSection")
 </section>
 
-<section id="testimonials" class="py-5 bg-white">
+
+@* --- TESTIMONIALS SECTION --- *@
+<section id="testimonials" class="py-5 bg-light overflow-hidden">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="badge rounded-pill bg-warning bg-opacity-10 text-warning px-3 py-2 mb-3">Testimonials</span>
+            <span class="badge rounded-pill bg-success bg-opacity-10 text-success px-3 py-2 mb-3">Testimonials</span>
             <h2 class="fw-bold display-5">What Our Patients Say</h2>
             <p class="text-muted mx-auto" style="max-width: 600px;">
-                Real stories from real patients who transformed their health through evidence-based nutrition therapy.
+                Real stories from patients who transformed their health through evidence-based nutrition therapy.
             </p>
         </div>
 
-        <div class="row g-4 mb-5">
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 position-relative">
-                    <div class="text-success mb-2">
+        <div class="testimonial-slider">
+            @* Card 1: Diabetes *@
+            <div class="px-3">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div class="text-warning mb-2 small">
                         <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                     </div>
-                    <p class="text-muted small italic mb-4">
-                        "Jeanett completely changed my approach to managing my diabetes. Her personalized meal plan was easy to follow, and within 3 months, my HbA1c levels dropped significantly."
-                    </p>
-                    <div class="d-flex align-items-center mt-auto">
-                        <div class="bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
-                            <span class="text-success fw-bold">T</span>
-                        </div>
-                        <div>
-                            <h6 class="mb-0 fw-bold">Thabo M.</h6>
-                            <small class="text-muted">Type 2 Diabetes</small>
-                        </div>
-                    </div>
+                    <p class="text-muted small mb-4">"Jeanett completely changed my approach to managing my diabetes. Her plans are realistic and easy to follow."</p>
+                    <h6 class="mb-0 fw-bold">Thabo M.</h6>
+                    <small class="text-muted">Type 2 Diabetes Patient</small>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
-                    <div class="text-success mb-2">
+            @* Card 2: Weight Management *@
+            <div class="px-3">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div class="text-warning mb-2 small">
                         <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                     </div>
-                    <p class="text-muted small mb-4">
-                        "After struggling with weight for years, I finally found someone who understood my challenges. Jeanett didn't just give me a diet—she taught me how to eat for life."
-                    </p>
-                    <div class="d-flex align-items-center mt-auto">
-                        <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
-                            <span class="text-primary fw-bold">S</span>
-                        </div>
-                        <div>
-                            <h6 class="mb-0 fw-bold">Sarah K.</h6>
-                            <small class="text-muted">Weight Management</small>
-                        </div>
-                    </div>
+                    <p class="text-muted small mb-4">"The weight loss journey felt sustainable for the first time. I didn't feel restricted, just better informed."</p>
+                    <h6 class="mb-0 fw-bold">Sarah J.</h6>
+                    <small class="text-muted">Weight Management</small>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
-                    <div class="text-success mb-2">
+            @* Card 3: Renal Care *@
+            <div class="px-3">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div class="text-warning mb-2 small">
                         <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                     </div>
-                    <p class="text-muted small mb-4">
-                        "I was skeptical about seeing a dietitian, but my doctor insisted. Best decision I ever made! Jeanett helped me lower my cholesterol naturally without medication."
-                    </p>
-                    <div class="d-flex align-items-center mt-auto">
-                        <div class="bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
-                            <span class="text-info fw-bold">M</span>
-                        </div>
-                        <div>
-                            <h6 class="mb-0 fw-bold">Mpho L.</h6>
-                            <small class="text-muted">High Cholesterol</small>
-                        </div>
-                    </div>
+                    <p class="text-muted small mb-4">"Excellent clinical support during my recovery. Highly recommend for specialized renal nutrition."</p>
+                    <h6 class="mb-0 fw-bold">David K.</h6>
+                    <small class="text-muted">Renal Care Patient</small>
                 </div>
             </div>
-        </div>
 
-        <div class="row text-center pt-4 border-top">
-            <div class="col-md-4">
-                <h3 class="fw-bold text-success mb-0">1000+</h3>
-                <p class="text-muted small">Happy Patients</p>
+            @* Card 4: Hypertension/Heart Health *@
+            <div class="px-3">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div class="text-warning mb-2 small">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="text-muted small mb-4">"My blood pressure has stabilized thanks to the heart-healthy meal plans. The recipes are actually delicious!"</p>
+                    <h6 class="mb-0 fw-bold">Linda N.</h6>
+                    <small class="text-muted">Hypertension Management</small>
+                </div>
             </div>
-            <div class="col-md-4 border-start border-end">
-                <h3 class="fw-bold text-success mb-0">4.9</h3>
-                <p class="text-muted small">Average Rating</p>
+
+            @* Card 5: Infant/Pediatric Nutrition *@
+            <div class="px-3">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div class="text-warning mb-2 small">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="text-muted small mb-4">"Jeanett was amazing with my daughter's feeding issues. She provided practical steps that lowered my stress as a mom."</p>
+                    <h6 class="mb-0 fw-bold">Palesa W.</h6>
+                    <small class="text-muted">Pediatric Nutrition</small>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h3 class="fw-bold text-success mb-0">98%</h3>
-                <p class="text-muted small">Recommend Us</p>
+
+            @* Card 6: Pregnancy/Maternal *@
+            <div class="px-3">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div class="text-warning mb-2 small">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="text-muted small mb-4">"Navigating gestational diabetes was scary, but the personalized guidance kept me and my baby safe and healthy."</p>
+                    <h6 class="mb-0 fw-bold">Grace L.</h6>
+                    <small class="text-muted">Maternal Health</small>
+                </div>
+            </div>
+
+            @* Card 7: Sports/Fitness *@
+            <div class="px-3">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div class="text-warning mb-2 small">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="text-muted small mb-4">"My energy levels during training have skyrocketed. The sports nutrition plan was a total game-changer for my performance."</p>
+                    <h6 class="mb-0 fw-bold">Sipho Z.</h6>
+                    <small class="text-muted">Sports Nutrition</small>
+                </div>
             </div>
         </div>
     </div>
@@ -898,3 +909,40 @@
         </div>
     </div>
 </section>
+
+<script
+                        document.addEventListener("DOMContentLoaded", () => {
+        const stats = document.querySelectorAll('.stat-number');
+
+        const animateValue = (element, target) => {
+            let startValue = 0;
+            const duration = 2000; // Animation duration in milliseconds
+            const stepTime = Math.abs(Math.floor(duration / target));
+
+            const timer = setInterval(() => {
+                startValue += 1;
+                element.textContent = startValue;
+                if (startValue >= target) {
+                    element.textContent = target; // Ensure it ends exactly on the target
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        };
+
+        // Trigger animation when the stats section enters the viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateValue(entry.target, target);
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(stat => observer.observe(stat));
+    });
+    </script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+

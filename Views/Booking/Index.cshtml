@@ -13,36 +13,46 @@
         </p>
     </div>
 
-<div class="container mt-4">
-  
-    <div class="row justify-content-center align-items-start gx-lg-5 mb-5">
-
-        <div id="calendar-col" class="col-lg-7 transition-all">
-            <div class="card shadow-sm p-3 border-0 rounded-4">
-                <div id='calendar'></div>
-            </div>
-        </div>
-
-        <div id="details-col" class="col-lg-4 d-none">
-            <div class="card shadow-lg border-0 rounded-4 overflow-hidden mt-lg-0 mt-4">
-                <div class="p-3 text-white" style="background-color: var(--brand-green, #2ECC71);">
-                    <h5 class="mb-0 fw-bold">Confirm Your Booking</h5>
+    <div class="container mt-4">
+        <div class="row justify-content-center align-items-start gx-lg-5 mb-5">
+            <div id="calendar-col" class="col-lg-7 transition-all">
+                <div class="card shadow-sm p-3 border-0 rounded-4">
+                    <div id='calendar'></div>
                 </div>
-                <div class="card-body p-4">
-                    <p class="text-muted mb-3">You selected: <br><span id="displayTime" class="fw-bold text-dark"></span></p>
+            </div>
 
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Full Name</label>
-                        <input type="text" id="patientName" class="form-control rounded-pill" placeholder="e.g. John Doe">
+            <div id="details-col" class="col-lg-4 d-none">
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden mt-lg-0 mt-4">
+                    <div class="p-3 text-white" style="background-color: var(--brand-green, #2ECC71);">
+                        <h5 class="mb-0 fw-bold">Confirm Your Booking</h5>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Email Address</label>
-                        <input type="email" id="patientEmail" class="form-control rounded-pill" placeholder="name@example.com">
-                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-muted mb-3">You selected: <br><span id="displayTime" class="fw-bold text-dark"></span></p>
 
-                    <div class="d-grid gap-2 mt-4">
-                        <button id="confirmBooking" class="btn btn-success rounded-pill py-2 fw-bold shadow-sm">Request Appointment</button>
-                        <button onclick="cancelBooking()" class="btn btn-link text-muted btn-sm">Change Time</button>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Full Name</label>
+                            <input type="text" id="patientName" class="form-control rounded-pill" placeholder="e.g. John Doe">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Phone Number</label>
+                            <input type="tel" id="patientPhone" class="form-control rounded-pill" placeholder="+27 12 345 6789">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Email Address</label>
+                            <input type="email" id="patientEmail" class="form-control rounded-pill" placeholder="name@example.com">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Additional Notes</label>
+                            <textarea id="patientNotes" class="form-control rounded-4" rows="2" placeholder="Tell us about your goals..."></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button id="confirmBooking" class="btn btn-success rounded-pill py-2 fw-bold shadow-sm">Request Appointment</button>
+                            <button onclick="cancelBooking()" class="btn btn-link text-muted btn-sm">Change Time</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,16 +64,14 @@
 
 <script>
     var selectedStartTime = "";
-    // FIXED: Corrected the variable declaration
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
+        slotDuration: '00:30:00',
         selectable: true,
         allDaySlot: false,
-        weekends: false, // Closed on weekends
-
-        // Time Constraints (08:00 - 17:00)
+        weekends: false,
         slotMinTime: '08:00:00',
         slotMaxTime: '17:00:00',
         businessHours: {
@@ -71,15 +79,12 @@
             startTime: '08:00',
             endTime: '17:00',
         },
-
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
             right: 'timeGridWeek,dayGridMonth'
         },
-
         events: '/Booking/GetBookedSlots',
-
         select: function(info) {
             selectedStartTime = info.startStr;
             let dateObj = new Date(selectedStartTime);
@@ -97,35 +102,38 @@
 
     calendar.render();
 
-          function cancelBooking() {
-            const detailsCol = document.getElementById('details-col');
-            const calendarCol = document.getElementById('calendar-col');
+    function cancelBooking() {
+        const detailsCol = document.getElementById('details-col');
+        const calendarCol = document.getElementById('calendar-col');
+        detailsCol.classList.add('d-none');
+        calendarCol.classList.replace('col-lg-7', 'col-lg-8');
+        setTimeout(() => { calendar.updateSize(); }, 400);
+    }
 
-            // 1. Hide the sidebar
-            detailsCol.classList.add('d-none');
-
-            // 2. Return calendar to its centered width (col-lg-8)
-            calendarCol.classList.replace('col-lg-7', 'col-lg-8');
-
-            // 3. Give the CSS transition a moment, then recalculate calendar size
-            setTimeout(() => {
-                calendar.updateSize();
-            }, 400);
-        }
     document.getElementById('confirmBooking').addEventListener('click', function() {
         const name = document.getElementById('patientName').value;
         const email = document.getElementById('patientEmail').value;
+        const phone = document.getElementById('patientPhone').value;
+        const notes = document.getElementById('patientNotes').value;
 
-        if(!name || !email) {
-            alert("Please fill in all details.");
+        if(!name || !email || !phone) {
+            alert("Please fill in required details (Name, Email, and Phone).");
             return;
         }
 
         const data = {
-            PatientName: name,
-            PatientEmail: email,
+            FullName: name,
+            Email: email,
+            PhoneNumber: phone,
+            Notes: notes,
             StartTime: selectedStartTime
         };
+
+        // UI Loading State
+        const btn = document.getElementById('confirmBooking');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+        btn.disabled = true;
 
         fetch('/Booking/CreateAppointment', {
             method: 'POST',
@@ -135,67 +143,45 @@
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                alert(result.message);
-                location.reload();
+                // REDIRECT to the Success view via the provided URL
+                window.location.href = result.redirectUrl;
             } else {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
                 alert("Error: " + result.message);
             }
+        })
+        .catch(error => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            console.error('Submission Error:', error);
         });
     });
 </script>
 
 <style>
-    /* Professional Typography */
-    h1.display-4 {
-        letter-spacing: -1px;
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    .lead {
-        font-size: 1.15rem;
-        line-height: 1.6;
-    }
-
- 
+    /* Styling remains consistent with brand green */
     .transition-all {
         transition: all 0.4s ease-in-out;
     }
 
     #calendar {
-        min-height: 500px;
+        max-width: 100%;
+        height: 550px !important;
+    }
+
+    .fc .fc-timegrid-slot {
+        height: 2.0em !important;
+    }
+
+    .fc-timegrid-slot-label-cushion, .fc-daygrid-day-number, .fc-col-header-cell-cushion {
+        color: #2ECC71 !important;
+        text-decoration: none !important;
+        font-weight: 600;
     }
 
     .fc-button-primary {
         background-color: #2ECC71 !important;
         border: none !important;
-    }
-    /* 1. Limit the height of the calendar container */
-    #calendar {
-        max-width: 100%;
-        height: 550px !important; /* Fixed height to fit between header and footer */
-    }
-
-    /* 2. Shrink the height of each hour slot */
-    .fc .fc-timegrid-slot {
-        height: 2.0em !important; /* Original is usually 3.0em+, shrinking it keeps 8am-5pm visible */
-    }
-
-    /* 3. Make the text slightly smaller to match the smaller slots */
-    .fc-timegrid-slot-label-cushion,
-    .fc-timegrid-event-short .fc-event-title {
-        font-size: 0.8rem;
-    }
-
-    .transition-all {
-        transition: all 0.4s ease-in-out;
-    }
-
-    /* 1. Change the Day Headers (Mon, Tue, etc.) and Date numbers */
-    .fc-col-header-cell-cushion,
-    .fc-daygrid-day-number,
-    .fc-timegrid-slot-label-cushion {
-        color: #2ECC71 !important; /* Your Brand Green */
-        text-decoration: none !important;
-        font-weight: 600;
     }
 </style>

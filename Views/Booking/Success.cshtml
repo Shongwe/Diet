@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Appointment Request Sent";
+}
+
+<div class="container my-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden text-center p-4 p-md-5">
+
+                <div class="mb-4">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                </div>
+
+                <h1 class="fw-bold mb-2" style="color: #2c3e50;">Appointment Request Sent!</h1>
+                <p class="text-muted mb-4">Thank you for contacting <span class="fw-bold text-dark">NJ Seroka Dietitians!</span></p>
+
+                <div class="bg-light rounded-3 p-4 mb-4 text-start border-start border-success border-4">
+                    <p class="mb-2">We've received your appointment request and will contact you within <span class="fw-bold text-dark">24 hours</span> to confirm.</p>
+                    <p class="small text-muted mb-0">If you don't hear from us, please call: <a href="tel:+27140610630" class="text-decoration-none fw-bold text-success">+27 14 061 0630</a></p>
+                </div>
+
+                <div class="p-4 rounded-3 mb-4" style="background-color: #f8fafc; border: 1px solid #e2e8f0;">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-calendar3 text-success me-2"></i>
+                        <h6 class="mb-0 fw-bold">Working Hours</h6>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 small">
+                        <span>Monday - Friday</span>
+                        <span class="fw-medium">08:00 - 17:00</span>
+                    </div>
+                    <div class="d-flex justify-content-between small">
+                        <span class="text-danger">Sunday & Public Holidays</span>
+                        <span class="text-danger fw-medium">Closed</span>
+                    </div>
+                </div>
+
+                <p class="fst-italic text-success mb-4" style="font-family: 'Georgia', serif;">
+                    "Providing evidence-based nutrition therapy for optimal health."
+                </p>
+
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-dark rounded-pill px-4 py-2 fw-bold">Return Home</a>
+                    <a asp-controller="Booking" asp-action="Index" class="btn btn-outline-success rounded-pill px-4 py-2 fw-bold">Book Another Appointment</a>
+                </div>
+
+                <div class="mt-5 pt-3 border-top">
+                    <small class="text-muted">NJ Seroka Dietitians | Registered Dietitians</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* Custom helper for extra small text to save space */
+    .x-small {
+        font-size: 0.75rem;
+    }
+
+    <style >
+    /* Prevents the body from scrolling when the card fits perfectly */
+    body {
+        overflow: hidden;
+        background-color: #f8f9fa;
+        margin-top :-80px;
+    }
+
+    /* Standardizes the small button font */
+    .btn-sm {
+        font-size: 0.75rem !important;
+    }
+</style>
+ 
+</style>
