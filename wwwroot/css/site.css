@@ -23,7 +23,28 @@ body {
     --brand-yellow: #F1C40F;
 }
 
+.btn-see-more {
+    background: none;
+    border: none;
+    color: #2ECC71; /* NJ Seroka Green */
+    padding: 0;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+}
 
+    .btn-see-more:hover {
+        color: #27ae60;
+        text-decoration: none;
+    }
+
+.bio-text {
+    line-height: 1.6;
+    color: #444; /* Standard readable gray */
+}
 
 .hero-section {
     background: radial-gradient(circle at 10% 20%, rgba(243, 255, 248, 1) 0%, rgba(255, 255, 255, 1) 100%);
