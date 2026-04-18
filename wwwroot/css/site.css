@@ -24,17 +24,30 @@ body {
 }
 
 
+
 .hero-section {
     background: radial-gradient(circle at 10% 20%, rgba(243, 255, 248, 1) 0%, rgba(255, 255, 255, 1) 100%);
-    background-image: url('../images/hero-pattern-medical.svg'); /* Integrated SVG */
+
+
+     background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('/images/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Optional: Creates a nice parallax effect */
     background-repeat: no-repeat;
-    background-position: center right;
-    background-size: contain;
+
     padding-bottom: 0 !important;
     min-height: 75vh; /* Restricted height to force stats onto the same screen */
     display: flex;
     align-items: center;
     overflow: hidden;
+}
+
+.bg-shape-1 {
+    background: radial-gradient(circle, rgba(40, 167, 69, 0.05) 0%, transparent 70%);
+}
+
+.bg-shape-2 {
+    background: radial-gradient(circle, rgba(13, 110, 253, 0.05) 0%, transparent 70%);
 }
 
 .hero-section h1 {

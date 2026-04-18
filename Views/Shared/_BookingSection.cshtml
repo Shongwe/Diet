@@ -35,9 +35,20 @@
                             <label class="form-label fw-bold">Full Name</label>
                             <input type="text" id="patientName" class="form-control rounded-pill" placeholder="e.g. John Doe">
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Phone Number</label>
+                            <input type="tel" id="patientPhone" class="form-control rounded-pill" placeholder="+27 12 345 6789">
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label fw-bold">Email Address</label>
                             <input type="email" id="patientEmail" class="form-control rounded-pill" placeholder="name@example.com">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Additional Notes</label>
+                            <textarea id="patientNotes" class="form-control rounded-4" rows="2" placeholder="Tell us about your goals..."></textarea>
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
@@ -58,7 +69,8 @@
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
+                initialView: 'timeGridWeek',
+        slotDuration: '00:30:00', // Set grid blocks to 30 mins
             selectable: true,
             allDaySlot: false,
             weekends: false, // Closed on weekends
@@ -113,19 +125,22 @@
                 }, 400);
             }
         document.getElementById('confirmBooking').addEventListener('click', function() {
-            const name = document.getElementById('patientName').value;
-            const email = document.getElementById('patientEmail').value;
+                const name = document.getElementById('patientName').value;
+              const email = document.getElementById('patientEmail').value;
+              const phone = document.getElementById('patientPhone').value;
+              const notes = document.getElementById('patientNotes').value;
 
-            if(!name || !email) {
-                alert("Please fill in all details.");
-                return;
-            }
-
-            const data = {
-                PatientName: name,
-                PatientEmail: email,
-                StartTime: selectedStartTime
-            };
+              if(!name || !email || !phone) {
+                  alert("Please fill in required details (Name, Email, and Phone).");
+                  return;
+              }
+        const data = {
+                  FullName: name,
+                  Email: email,
+                  PhoneNumber: phone,
+                  Notes: notes,
+                  StartTime: selectedStartTime
+              };
 
             fetch('/Booking/CreateAppointment', {
                 method: 'POST',
@@ -138,8 +153,8 @@
                     alert(result.message);
                     location.reload();
                 } else {
-                    alert("Error: " + result.message);
-                }
+                   alert("Error: " + result.message);
+                   console.error("Validation Errors:", result.errors);                }
             });
         });
     </script>

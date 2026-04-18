@@ -4,9 +4,12 @@
     ViewData["MetaDescription"] = Model.MetaDescription;
 }
 
+
+
+
 @* --- HERO SECTION --- *@
 <section id="hero" class="hero-section position-relative overflow-hidden" aria-labelledby="hero-heading">
-    @* Decorative shapes: hidden from screen readers *@
+    @* Decorative shapes *@
     <div class="bg-shape-1" aria-hidden="true"></div>
     <div class="bg-shape-2" aria-hidden="true"></div>
 
@@ -14,101 +17,110 @@
         <div class="row align-items-center min-vh-100 g-5 pt-5">
             <div class="col-lg-6 py-5">
                 <header class="hero-content">
-                    @* Priority Label *@
+                    @* Specialized Label *@
                     <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-success bg-opacity-10 text-success mb-4 animate-fade-in">
                         <i class="bi bi-shield-check" aria-hidden="true"></i>
-                        <span class="small fw-bold text-uppercase tracking-wider">Diabetes & Obesity Focus</span>
+                        <span class="small fw-bold text-uppercase tracking-wider">Diabetes & Obesity Specialist</span>
                     </div>
 
-                    <h1 id="hero-heading" class="display-2 fw-bolder text-dark mb-3 animate-slide-up">
+                    <h1 id="hero-heading" class="display-2 fw-bolder text-dark mb-2 animate-slide-up">
                         @Model.SpecialistName
                     </h1>
                     <p class="h2 fw-bold text-success mb-4 animate-slide-up-delayed">Registered Dietitian</p>
 
+                    @* Optimized Bio Description *@
                     <p class="lead text-secondary mb-5 animate-fade-in">
-                                <p class="small text-muted mb-3">
-                                    <strong>Jeanett Mampane</strong> is a Registered Dietitian, qualified from the University of Limpopo in 2016 and completed her community service at Brits District Hospital in 2017. She has extensive experience in providing nutrition support for critical illness and chronic diseases.
-                                </p>
-                                <p class="small text-muted mb-3">
-                                    Currently practicing at <strong>Netcare Ferncrest, Life Peglerae, and Medicare Hospital</strong>, she also provides outpatient consultations at Phomolong Medical Centre.
-                                </p>
-                                <p class="small text-muted mb-0">
-                                    With a Post-Graduate Diploma in Diabetes from the <strong>University of South Wales (UK)</strong>, Jeanett is committed to individualized, realistic, and sustainable care for obesity and diabetes management.
-                                </p>
-=                    </p>
+                    <p class="small text-muted mb-3">
+                        <strong>Jeanett Mampane</strong> is a Registered Dietitian, qualified from the University of Limpopo in 2016 and completed her community service at Brits District Hospital in 2017. She has extensive experience in providing nutrition support for critical illness and chronic diseases.
+                    </p>
+                    <p class="small text-muted mb-3">
+                        Currently practicing at <strong>Netcare Ferncrest, Life Peglerae, and Medicare Hospital</strong>, she also provides outpatient consultations at Phomolong Medical Centre.
+                    </p>
+                    <p class="small text-muted mb-0">
+                        With a Post-Graduate Diploma in Diabetes from the <strong>University of South Wales (UK)</strong>, Jeanett is committed to individualized, realistic, and sustainable care for obesity and diabetes management.
+                    </p>
+                    </p>
 
                     @* Call to Action Group *@
                     <div class="d-flex flex-wrap gap-3 mb-5 animate-slide-up-buttons">
                         <a href="#appointment-booking" class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm">
-                            Book Consultation · R@(Model.ConsultationPrice.ToString("N0"))
+                            Book Consultation
                             <i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>
                         </a>
                         <a href="#services-grid" class="btn btn-outline-success btn-lg rounded-pill px-5 py-3 fw-bold">
-                            Our Services
+                            View Services
                         </a>
                     </div>
 
-                    @* Trust Badges *@
+                    @* Dynamic Trust Badges *@
                     <div class="d-flex flex-wrap gap-2 animate-fade-in" role="list">
                         @foreach (var badge in Model.SpecialistBadges)
                         {
-                            <span class="badge-custom" role="listitem">@badge</span>
+                            <span class="badge rounded-pill bg-light text-dark border px-3 py-2 small shadow-sm" role="listitem">
+                                <i class="bi bi-patch-check-fill text-success me-1"></i> @badge
+                            </span>
                         }
                     </div>
                 </header>
             </div>
 
+            @* Right Column: Image & Floating Card *@
             <div class="col-lg-6 position-relative text-center animate-zoom-in">
-                <div class="image-container mx-auto">
-                    @* Image Optimization: fetchpriority="high" for LCP element *@
-                    <img src="~/images/jeanett-portrait.jpg"
-                         alt="Portrait of @Model.SpecialistName"
-                         class="hero-img rounded-5 shadow-2xl img-fluid"
-                         fetchpriority="high"
-                         width="300"
-                         height="300">
-
-                    <div class="glass-card position-absolute bottom-0 start-0 translate-middle-x mb-5 shadow-lg p-3 d-flex align-items-center">
-                        <div class="price-circle me-3" aria-label="Consultation fee">R@(Model.ConsultationPrice.ToString("N0"))</div>
+                <div class="image-container mx-auto position-relative" style="max-width: 500px;">
+                   @* <img src="~/images/logo.jpeg" 
+                         alt="Jeanett Mampane - Registered Dietitian" 
+                         class="hero-img rounded-5 shadow-2xl img-fluid" 
+                         fetchpriority="high">*@
+                    
+                    @* Floating Price/Info Card *
+                    <div class="glass-card position-absolute bottom-0 start-0 translate-middle-x mb-5 shadow-lg p-3 d-flex align-items-center bg-white bg-opacity-75 backdrop-blur rounded-4 border">
+                        <div class="price-circle bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3 fw-bold" 
+                             style="width: 60px; height: 60px; font-size: 0.9rem;">
+                            R@(Model.ConsultationPrice.ToString("N0"))
+                        </div>
                         <div class="text-start">
                             <p class="fw-bold mb-0 small text-dark">Initial Assessment</p>
-                            <p class="text-muted mb-0 extra-small">Medical Aids Accepted</p>
+                            <p class="text-muted mb-0 extra-small" style="font-size: 0.75rem;">Medical Aids Accepted</p>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+
+            @* --- STATS ROW --- *@
+            <section class="stats-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item fade-in-up">
+                            <span class="stat-number" data-target="6">0</span>
+                            <span class="stat-plus">+</span>
+                            <p class="stat-label">Years Experience</p>
+                        </div>
+                        <div class="stat-item fade-in-up">
+                            <span class="stat-number" data-target="683">0</span>
+                            <span class="stat-plus">+</span>
+                            <p class="stat-label">Patients Helped</p>
+                        </div>
+                        <div class="stat-item fade-in-up">
+                            <span class="stat-number" data-target="10">0</span>
+                            <span class="stat-plus">+</span>
+                            <p class="stat-label">Certifications</p>
+                        </div>
+                        <div class="stat-item fade-in-up">
+                            <span class="stat-number" data-target="2">0</span>
+                            <span class="stat-plus">+</span>
+                            <p class="stat-label">Dietitians Team</p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
+
         </div>
-
-        @* --- STATS ROW --- *@
-        <section class="stats-section">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item fade-in-up">
-                        <span class="stat-number" data-target="6">0</span>
-                        <span class="stat-plus">+</span>
-                        <p class="stat-label">Years Experience</p>
-                    </div>
-                    <div class="stat-item fade-in-up">
-                        <span class="stat-number" data-target="683">0</span>
-                        <span class="stat-plus">+</span>
-                        <p class="stat-label">Patients Helped</p>
-                    </div>
-                    <div class="stat-item fade-in-up">
-                        <span class="stat-number" data-target="10">0</span>
-                        <span class="stat-plus">+</span>
-                        <p class="stat-label">Certifications</p>
-                    </div>
-                    <div class="stat-item fade-in-up">
-                        <span class="stat-number" data-target="2">0</span>
-                        <span class="stat-plus">+</span>
-                        <p class="stat-label">Dietitians Team</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </div>
+
 </section>
+
+
 
 @* --- ABOUT & CLINICAL TEAM SECTION --- *@
 

@@ -18,8 +18,8 @@ namespace Diet.Services
         public async Task SendBookingNotification(string patientName, string patientEmail, DateTime startTime)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("NJ Seroka Booking", "info@njserokadietitians.co.za"));
-            message.To.Add(new MailboxAddress("Admin", "admin@njserokadietitians.co.za"));
+            message.From.Add(new MailboxAddress("NJ Seroka Booking", "ujcsresource@gmail.com"));
+            message.To.Add(new MailboxAddress("Admin", "ujcsresource@gmail.com"));
             message.Subject = "New Consultation Request: " + patientName;
 
             message.Body = new TextPart("html")
@@ -47,7 +47,7 @@ namespace Diet.Services
             if (template == null) return; // Or handle with a default message
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("NJ Seroka Dietitians", "info@njserokadietitians.co.za"));
+            message.From.Add(new MailboxAddress("NJ Seroka Dietitians", "ujcsresource@gmail.com"));
             message.To.Add(new MailboxAddress(patientName, patientEmail));
             message.Subject = template.Subject ?? "Consultation Confirmed!";
 
@@ -64,8 +64,8 @@ namespace Diet.Services
             using (var client = new SmtpClient())
             {
                 // Note: On Azure, port 25 is blocked. Port 587 with StartTls is the way to go.
-                await client.ConnectAsync("mail.njserokadietitians.co.za", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                await client.AuthenticateAsync("info@njserokadietitians.co.za", "YourPassword");
+                await client.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync("ujcsresource@gmail.com", "qxhp cbcy uewy leom");
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
             }

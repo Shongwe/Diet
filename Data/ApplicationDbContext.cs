@@ -10,5 +10,13 @@ namespace Diet.Data
 
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<EmailTemplate>  EmailTemplates { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Appointment>()
+                .HasIndex(a => a.StartTime);
+        }
     }
 }
