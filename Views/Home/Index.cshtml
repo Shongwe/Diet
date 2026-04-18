@@ -518,105 +518,77 @@
     @await Html.PartialAsync("_BookingSection")
 </section>
 
-
 @* --- TESTIMONIALS SECTION --- *@
-<section id="testimonials" class="py-5 bg-light overflow-hidden">
+
+<section id="testimonials" class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
             <span class="badge rounded-pill bg-success bg-opacity-10 text-success px-3 py-2 mb-3">Testimonials</span>
             <h2 class="fw-bold display-5">What Our Patients Say</h2>
-            <p class="text-muted mx-auto" style="max-width: 600px;">
-                Real stories from patients who transformed their health through evidence-based nutrition therapy.
-            </p>
         </div>
 
-        <div class="testimonial-slider">
-            @* Card 1: Diabetes *@
-            <div class="px-3">
+        <div class="testimonial-slider d-flex overflow-auto pb-4" style="scroll-snap-type: x mandatory; gap: 1.5rem; scrollbar-width: none;">
+            
+            <div class="testimonial-item">
                 <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                    <div class="text-warning mb-2 small">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-muted small mb-4">"Jeanett completely changed my approach to managing my diabetes. Her plans are realistic and easy to follow."</p>
-                    <h6 class="mb-0 fw-bold">Thabo M.</h6>
+                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p class="text-muted fst-italic mb-3">"Jeanett completely changed my approach to managing my diabetes. Her plans are realistic and easy to follow."</p>
+                    <h6 class="fw-bold mb-0">Thabo M.</h6>
                     <small class="text-muted">Type 2 Diabetes Patient</small>
                 </div>
             </div>
 
-            @* Card 2: Weight Management *@
-            <div class="px-3">
-                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                    <div class="text-warning mb-2 small">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-muted small mb-4">"The weight loss journey felt sustainable for the first time. I didn't feel restricted, just better informed."</p>
-                    <h6 class="mb-0 fw-bold">Sarah J.</h6>
+            <div class="testimonial-item">
+                <div class="card border-0 shadow-lg rounded-4 p-4 h-100 border-top border-success border-4">
+                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p class="text-muted fst-italic mb-3">"The weight loss journey felt sustainable for the first time. I didn't feel restricted, just better informed."</p>
+                    <h6 class="fw-bold mb-0">Sarah J.</h6>
                     <small class="text-muted">Weight Management</small>
                 </div>
             </div>
 
-            @* Card 3: Renal Care *@
-            <div class="px-3">
+            <div class="testimonial-item">
                 <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                    <div class="text-warning mb-2 small">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-muted small mb-4">"Excellent clinical support during my recovery. Highly recommend for specialized renal nutrition."</p>
-                    <h6 class="mb-0 fw-bold">David K.</h6>
+                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p class="text-muted fst-italic mb-3">"Excellent clinical support during my recovery. Highly recommend for specialized renal nutrition."</p>
+                    <h6 class="fw-bold mb-0">David K.</h6>
                     <small class="text-muted">Renal Care Patient</small>
                 </div>
             </div>
 
-            @* Card 4: Hypertension/Heart Health *@
-            <div class="px-3">
+            <div class="testimonial-item">
                 <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                    <div class="text-warning mb-2 small">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-muted small mb-4">"My blood pressure has stabilized thanks to the heart-healthy meal plans. The recipes are actually delicious!"</p>
-                    <h6 class="mb-0 fw-bold">Linda N.</h6>
-                    <small class="text-muted">Hypertension Management</small>
+                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p class="text-muted fst-italic mb-3">"Jeanett completely changed my approach to managing my diabetes. Her plans are realistic and easy to follow."</p>
+                    <h6 class="fw-bold mb-0">Thabo M.</h6>
+                    <small class="text-muted">Type 2 Diabetes Patient</small>
                 </div>
             </div>
 
-            @* Card 5: Infant/Pediatric Nutrition *@
-            <div class="px-3">
-                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                    <div class="text-warning mb-2 small">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-muted small mb-4">"Jeanett was amazing with my daughter's feeding issues. She provided practical steps that lowered my stress as a mom."</p>
-                    <h6 class="mb-0 fw-bold">Palesa W.</h6>
-                    <small class="text-muted">Pediatric Nutrition</small>
+            <div class="testimonial-item">
+                <div class="card border-0 shadow-lg rounded-4 p-4 h-100 border-top border-success border-4">
+                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p class="text-muted fst-italic mb-3">"The weight loss journey felt sustainable for the first time. I didn't feel restricted, just better informed."</p>
+                    <h6 class="fw-bold mb-0">Sarah J.</h6>
+                    <small class="text-muted">Weight Management</small>
                 </div>
             </div>
 
-            @* Card 6: Pregnancy/Maternal *@
-            <div class="px-3">
+            <div class="testimonial-item">
                 <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                    <div class="text-warning mb-2 small">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-muted small mb-4">"Navigating gestational diabetes was scary, but the personalized guidance kept me and my baby safe and healthy."</p>
-                    <h6 class="mb-0 fw-bold">Grace L.</h6>
-                    <small class="text-muted">Maternal Health</small>
+                    <div class="text-warning mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                    <p class="text-muted fst-italic mb-3">"Excellent clinical support during my recovery. Highly recommend for specialized renal nutrition."</p>
+                    <h6 class="fw-bold mb-0">David K.</h6>
+                    <small class="text-muted">Renal Care Patient</small>
                 </div>
             </div>
 
-            @* Card 7: Sports/Fitness *@
-            <div class="px-3">
-                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                    <div class="text-warning mb-2 small">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="text-muted small mb-4">"My energy levels during training have skyrocketed. The sports nutrition plan was a total game-changer for my performance."</p>
-                    <h6 class="mb-0 fw-bold">Sipho Z.</h6>
-                    <small class="text-muted">Sports Nutrition</small>
-                </div>
-            </div>
         </div>
     </div>
 </section>
+
+
+
 
 <section id="visit" class="py-5 bg-light">
     <div class="container">
@@ -906,39 +878,126 @@
     </div>
 </section>
 
-<script
-                        document.addEventListener("DOMContentLoaded", () => {
-        const stats = document.querySelectorAll('.stat-number');
+<script>
+    var selectedStartTime = "";
+    var calendarEl = document.getElementById('calendar');
 
-        const animateValue = (element, target) => {
-            let startValue = 0;
-            const duration = 2000; // Animation duration in milliseconds
-            const stepTime = Math.abs(Math.floor(duration / target));
+    // 1. HELPER: Determine view based on screen width
+    function getInitialView() {
+        return window.innerWidth < 768 ? 'timeGridDay' : 'timeGridWeek';
+    }
 
-            const timer = setInterval(() => {
-                startValue += 1;
-                element.textContent = startValue;
-                if (startValue >= target) {
-                    element.textContent = target; // Ensure it ends exactly on the target
-                    clearInterval(timer);
-                }
-            }, stepTime);
+    // 2. INITIALIZE: Calendar with responsive logic
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: getInitialView(),
+        height: 'auto', // Important to keep the card length dynamic
+        handleWindowResize: true,
+        windowResize: function(view) {
+            if (window.innerWidth < 768) {
+                calendar.changeView('timeGridDay');
+            } else {
+                calendar.changeView('timeGridWeek');
+            }
+        },
+        slotDuration: '00:30:00',
+        selectable: true,
+        allDaySlot: false,
+        weekends: false,
+        slotMinTime: '08:00:00',
+        slotMaxTime: '17:00:00',
+        businessHours: {
+            daysOfWeek: [1, 2, 3, 4, 5],
+            startTime: '08:00',
+            endTime: '17:00',
+        },
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridWeek,dayGridMonth'
+        },
+        events: '/Booking/GetBookedSlots',
+        select: function(info) {
+            selectedStartTime = info.startStr;
+            let dateObj = new Date(selectedStartTime);
+
+            document.getElementById('displayTime').innerText = dateObj.toLocaleString([], {
+                weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+
+            // Show details form
+            document.getElementById('details-col').classList.remove('d-none');
+            
+            // Adjust layout for desktop vs mobile
+            if(window.innerWidth < 992) {
+                document.getElementById('details-col').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                document.getElementById('calendar-col').classList.replace('col-lg-12', 'col-lg-7');
+            }
+
+            setTimeout(() => { calendar.updateSize(); }, 400);
+        }
+    });
+
+    calendar.render();
+
+    // 3. UI ACTION: Cancel/Reset view
+    function cancelBooking() {
+        const detailsCol = document.getElementById('details-col');
+        const calendarCol = document.getElementById('calendar-col');
+        detailsCol.classList.add('d-none');
+        calendarCol.classList.replace('col-lg-7', 'col-lg-8');
+        setTimeout(() => { calendar.updateSize(); }, 400);
+    }
+
+    // 4. DATA SUBMISSION: The Fetch request from your old script
+    document.getElementById('confirmBooking').addEventListener('click', function() {
+        const name = document.getElementById('patientName').value;
+        const email = document.getElementById('patientEmail').value;
+        const phone = document.getElementById('patientPhone').value;
+        const notes = document.getElementById('patientNotes').value;
+
+        if(!name || !email || !phone) {
+            alert("Please fill in required details (Name, Email, and Phone).");
+            return;
+        }
+
+        const data = {
+            FullName: name,
+            Email: email,
+            PhoneNumber: phone,
+            Notes: notes,
+            StartTime: selectedStartTime
         };
 
-        // Trigger animation when the stats section enters the viewport
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = parseInt(entry.target.getAttribute('data-target'));
-                    animateValue(entry.target, target);
-                    observer.unobserve(entry.target); // Only animate once
-                }
-            });
-        }, { threshold: 0.5 });
+        // UI Loading State
+        const btn = document.getElementById('confirmBooking');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+        btn.disabled = true;
 
-        stats.forEach(stat => observer.observe(stat));
+        fetch('/Booking/CreateAppointment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                // Success redirect
+                window.location.href = result.redirectUrl;
+            } else {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert("Error: " + result.message);
+            }
+        })
+        .catch(error => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            console.error('Submission Error:', error);
+        });
     });
-    </script>
+</script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 

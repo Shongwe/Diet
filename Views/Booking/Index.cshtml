@@ -65,9 +65,14 @@
 <script>
     var selectedStartTime = "";
     var calendarEl = document.getElementById('calendar');
+    var isMobile = window.innerWidth < 768;
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
+        // CHANGE 1: Use single day view on mobile, week view on desktop
+        initialView: isMobile ? 'timeGridDay' : 'timeGridWeek',
+        longPressDelay: 0,
+        selectMirror: true,
+        handleWindowResize: true,
         slotDuration: '00:30:00',
         selectable: true,
         allDaySlot: false,
@@ -94,8 +99,14 @@
             });
 
             document.getElementById('details-col').classList.remove('d-none');
-            document.getElementById('calendar-col').classList.replace('col-lg-12', 'col-lg-7');
 
+            // CHANGE 3: Layout adjustment + Mobile Scroll
+            if(!isMobile) {
+                document.getElementById('calendar-col').classList.replace('col-lg-12', 'col-lg-7');
+            } else {
+                // Auto-scroll to the form on mobile so the user sees it
+                document.getElementById('details-col').scrollIntoView({ behavior: 'smooth' });
+            }
             setTimeout(() => { calendar.updateSize(); }, 400);
         }
     });
@@ -129,9 +140,8 @@
             StartTime: selectedStartTime
         };
 
-        // UI Loading State
+        // Loading state
         const btn = document.getElementById('confirmBooking');
-        const originalText = btn.innerHTML;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
         btn.disabled = true;
 
@@ -143,38 +153,46 @@
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                // REDIRECT to the Success view via the provided URL
+                // REDIRECT: Redirect to the Success page URL provided by the controller
                 window.location.href = result.redirectUrl;
             } else {
-                btn.innerHTML = originalText;
+                btn.innerHTML = 'Request Appointment';
                 btn.disabled = false;
                 alert("Error: " + result.message);
             }
         })
         .catch(error => {
-            btn.innerHTML = originalText;
+            btn.innerHTML = 'Request Appointment';
             btn.disabled = false;
-            console.error('Submission Error:', error);
+            console.error('Error:', error);
         });
     });
 </script>
-
 <style>
-    /* Styling remains consistent with brand green */
-    .transition-all {
+    /* 1. Main Calendar Container - Consistently set to auto to expand the card */
+    #calendar {
+        max-width: 100%;
+        min-height: 850px; /* Slightly increased to ensure 4pm/5pm slots are visible */
+        height: auto !important;
+    }
+
+    /* 2. Card Expansion - Ensures the parent card grows with the FullCalendar content */
+    #calendar-col .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
         transition: all 0.4s ease-in-out;
     }
 
-    #calendar {
-        max-width: 100%;
-        height: 550px !important;
-    }
-
+    /* 3. Slot Height - Setting to 2.5em gives a good balance for visibility */
     .fc .fc-timegrid-slot {
-        height: 2.0em !important;
+        height: 2.5em !important;
     }
 
-    .fc-timegrid-slot-label-cushion, .fc-daygrid-day-number, .fc-col-header-cell-cushion {
+    /* 4. Branding & Typography - Keeping your #2ECC71 green theme */
+    .fc-timegrid-slot-label-cushion,
+    .fc-daygrid-day-number,
+    .fc-col-header-cell-cushion {
         color: #2ECC71 !important;
         text-decoration: none !important;
         font-weight: 600;
@@ -183,5 +201,10 @@
     .fc-button-primary {
         background-color: #2ECC71 !important;
         border: none !important;
+    }
+
+    /* Extra: Fixes potential overflow issues on the card */
+    .card {
+        overflow: visible !important;
     }
 </style>
